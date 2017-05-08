@@ -13,9 +13,8 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public GameObject thing; 
 #region Variables 
-//names
+    //names
     private string boyName_;
     private string girlName_;
     private string nameText;
@@ -34,29 +33,6 @@ public class GameController : MonoBehaviour
     private bool currentPlayer = false;
 
     #endregion
-
-    public void ChangePlayer()
-    {
-        currentPlayer =!currentPlayer;
-        Debug.Log(currentPlayer);
-    }
-
-    public void ChangeName()
-    {
-        try
-        {
-            InputField nameInput = GameObject.FindGameObjectWithTag("NameField").GetComponent<InputField>();
-            nameText = nameInput.text; 
-        }
-        catch (System.NullReferenceException) {}
-
-        Debug.Log(nameText);
-        if (!currentPlayer)
-            boyName_ = nameText;
-        else if (currentPlayer)
-            girlName_ = nameText; 
-    }
-
 
     #region ChangeStats
 
@@ -129,9 +105,20 @@ public class GameController : MonoBehaviour
 
     #endregion
 
-    // Use this for initialization
-    void Start ()
+    public void ChangePlayer()
     {
+        currentPlayer = !currentPlayer;
+        Debug.Log(currentPlayer);
+    }
 
-	}	
+    public void ChangeName(string name, bool isMale)
+    {
+        Debug.Log(name);
+        if (isMale)
+            boyName_ = name;
+        else if (!isMale)
+            girlName_ = name;
+    }
+
+
 }
