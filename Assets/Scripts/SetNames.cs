@@ -6,25 +6,75 @@ using UnityEngine.SceneManagement;
 
 public class SetNames : MonoBehaviour
 {
-
-    private InputField input;
-    private GameController gController;
     [SerializeField]
-    private bool isMale;
+    private InputField input;
 
-    public bool entered = false;
+    [SerializeField]
+    private Dropdown sexSelect;
+
+    [SerializeField]
+    private Button continueButton;
+
+    [SerializeField]
+    private GameObject MainInputs;
+
+    [SerializeField]
+    private GameObject passText;
+
+    private GameController gController;
+    private bool isMale;
+    private string playerName;
+    private bool nameEntered = false;
+    private int players = 0; 
+
 
 	// Use this for initialization
 	void Start ()
     {
-        input = GetComponent<InputField>();
-        input.onEndEdit.AddListener(SubmitName);
+        continueButton.onClick.AddListener(SubmitName);
+        input.onEndEdit.AddListener(NewName);
         gController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 	}
 
-    public void SubmitName(string name)
+    private void NewName(string name)
     {
-        gController.ChangeName(name,isMale);
-        entered = true; 
+        if (name != "")
+        {
+            playerName = name;
+            nameEntered = true;
+        }
+    }
+
+    public void SubmitName()
+    {
+        if (nameEntered)
+        {
+            if (sexSelect.value == 0)
+                isMale = true;
+            else if (sexSelect.value == 1)
+                isMale = false;
+
+            gController.ChangeName(playerName, isMale);
+            players += 1;
+            nameEntered = false;
+            input.text = "";
+
+            if (players <= 1)
+            {
+                MainInputs.SetActive(false);
+                passText.SetActive(true);
+            }
+
+            else if (players > 1)
+            {
+                SceneManager.LoadScene("Main");
+            }
+        }
+
+        else if (!nameEntered && MainInputs.activeSelf == false)
+        {
+            MainInputs.SetActive(true);
+            passText.SetActive(false);
+        } 
     }	
 }

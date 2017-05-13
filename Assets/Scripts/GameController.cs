@@ -15,9 +15,9 @@ public class GameController : MonoBehaviour
 
 #region Variables 
     //names
-    private string boyName_;
-    private string girlName_;
-    private string nameText;
+    private string boyName_ = "";
+    private string girlName_ = "";
+    //private string nameText;
 
     //stats
     private int boySobriety_;
@@ -113,11 +113,16 @@ public class GameController : MonoBehaviour
 
     public void ChangeName(string name, bool isMale)
     {
-        Debug.Log(name);
-        if (isMale)
+        if (isMale && boyName_ == "")
             boyName_ = name;
-        else if (!isMale)
+        else if (isMale && boyName_ != "")
             girlName_ = name;
+        else if (!isMale && girlName_ == "")
+            girlName_ = name;
+        else if (!isMale && girlName_ != "")
+            boyName_ = name;
+
+        Debug.Log(boyName_ + " + " + girlName_);
     }
 
 
