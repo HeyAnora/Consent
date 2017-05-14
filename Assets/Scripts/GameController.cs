@@ -111,6 +111,10 @@ public class GameController : MonoBehaviour
         Debug.Log(currentPlayer);
     }
 
+    public bool CheckPlayer(){
+        return currentPlayer; 
+    }
+
     public void ChangeName(string name, bool isMale)
     {
         if (isMale && boyName_ == "")
