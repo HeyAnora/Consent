@@ -63,10 +63,10 @@ public class ScenarioController : MonoBehaviour
         if (!gController.CheckPlayer())
         {
             scenario = Random.Range(0, maleScenario.Count);
-            maleScenario.RemoveAt(scenario);
 
-            switch (scenario+1)
+            switch (maleScenario[scenario])
             {
+
                 default:
                     //Dialogue text
                     dialogue.text =
@@ -140,11 +140,15 @@ public class ScenarioController : MonoBehaviour
                     changeStat = "ChangeSobriety";
                     break;
             }
+
+            maleScenario.RemoveAt(scenario);
         }
 
         //female scenarios
         else if (gController.CheckPlayer())
         {
+            scenario = Random.Range(0, femaleScenario.Count);
+
             switch (femaleScenario[scenario])
             {
                 default:
@@ -155,6 +159,8 @@ public class ScenarioController : MonoBehaviour
                     //insert code
                     break;
             }
+
+            maleScenario.RemoveAt(scenario);
         }
     }
 
