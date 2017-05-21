@@ -10,23 +10,29 @@ public class SetNames : MonoBehaviour
     private InputField input;
 
     [SerializeField]
-    private Dropdown sexSelect;
-
-    [SerializeField]
     private Button continueButton;
 
-    [SerializeField]
-    private GameObject MainInputs;
-
-    [SerializeField]
-    private GameObject passText;
-
     private GameController gController;
-    private bool isMale;
+    private bool isMale = false;
     private string playerName;
     private bool nameEntered = false;
-    private int players = 0; 
+    private int players = 0;
 
+    [SerializeField]
+    private Text[] genderedText;
+    [SerializeField]
+    private Color boyColor;
+
+    [SerializeField]
+    private Sprite boySprite;
+    [SerializeField]
+    private Image genderedImage;
+    [SerializeField]
+    private Sprite boyButton;
+    [SerializeField]
+    private Sprite boyButtonPressed;
+
+    private SpriteState boySpriteState; 
 
 	// Use this for initialization
 	void Start ()
@@ -34,6 +40,7 @@ public class SetNames : MonoBehaviour
         continueButton.onClick.AddListener(SubmitName);
         input.onEndEdit.AddListener(NewName);
         gController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        boySpriteState.pressedSprite = boyButtonPressed; 
 	}
 
     private void NewName(string name)
@@ -49,11 +56,6 @@ public class SetNames : MonoBehaviour
     {
         if (nameEntered)
         {
-            if (sexSelect.value == 0)
-                isMale = true;
-            else if (sexSelect.value == 1)
-                isMale = false;
-
             gController.ChangeName(playerName, isMale);
             players += 1;
             nameEntered = false;
@@ -61,20 +63,19 @@ public class SetNames : MonoBehaviour
 
             if (players <= 1)
             {
-                MainInputs.SetActive(false);
-                passText.SetActive(true);
+                isMale = true;
+                for (int i = 0; i < genderedText.Length; i++)
+                    genderedText[i].color = boyColor;
+                genderedImage.sprite = boySprite;
+                continueButton.spriteState = boySpriteState;
+                continueButton.gameObject.GetComponent<Image>().sprite = boyButton; 
             }
 
             else if (players > 1)
             {
-                SceneManager.LoadScene("Main");
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.buildIndex+1);
             }
         }
-
-        else if (!nameEntered && MainInputs.activeSelf == false)
-        {
-            MainInputs.SetActive(true);
-            passText.SetActive(false);
-        } 
     }	
 }

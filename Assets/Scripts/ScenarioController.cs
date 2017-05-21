@@ -33,6 +33,10 @@ public class ScenarioController : MonoBehaviour
     private int[] statValue = new int[3];
     private string changeStat;
 
+    // 0 = Sob, 1 = Love, 2 = Social
+    [SerializeField]
+    private Text[] stats; 
+
     private GameController gController;
 
     void Start()
@@ -160,7 +164,7 @@ public class ScenarioController : MonoBehaviour
                     break;
             }
 
-            maleScenario.RemoveAt(scenario);
+            femaleScenario.RemoveAt(scenario);
         }
     }
 
@@ -170,7 +174,6 @@ public class ScenarioController : MonoBehaviour
     public void SubmitAnswer_1()
     {
         gController.SendMessage(changeStat, statValue[0]);
-
 
     }
 
@@ -183,6 +186,11 @@ public class ScenarioController : MonoBehaviour
     public void SubmitAnswer_3()
     {
         gController.SendMessage(changeStat, statValue[2]);
+
+    }
+
+    public void ChangeStatUI()
+    {
 
     }
 }

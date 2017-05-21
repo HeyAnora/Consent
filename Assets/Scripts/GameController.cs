@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private int girlLove_;
 
     //CurrentPlayer false = boy, true = girl
+    [SerializeField]
     private bool currentPlayer = false;
 
     #endregion
@@ -60,10 +61,6 @@ public class GameController : MonoBehaviour
             girlLove_ += change; 
     }
 
-    public void ChangeStatUI()
-    {
-        //add code to change Stat UI 
-    }
     #endregion
 
     #region CheckStats
@@ -126,7 +123,7 @@ public class GameController : MonoBehaviour
         else if (!isMale && girlName_ != "")
             boyName_ = name;
 
-        Debug.Log(boyName_ + " + " + girlName_);
+        Debug.Log(girlName_ + " + " + boyName_);
     }
 
 
