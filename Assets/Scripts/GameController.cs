@@ -112,6 +112,16 @@ public class GameController : MonoBehaviour
         return currentPlayer; 
     }
 
+    public string PlayerName(string gender)
+    {
+        if (gender == "boy")
+            return boyName_;
+        else if (gender == "girl")
+            return girlName_;
+
+        else return null; 
+    }
+
     public void ChangeName(string name, bool isMale)
     {
         if (isMale && boyName_ == "")

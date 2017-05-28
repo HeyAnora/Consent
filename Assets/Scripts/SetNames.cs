@@ -59,10 +59,10 @@ public class SetNames : MonoBehaviour
             gController.ChangeName(playerName, isMale);
             players += 1;
             nameEntered = false;
-            input.text = "";
 
             if (players <= 1)
             {
+                input.text = "";
                 isMale = true;
                 for (int i = 0; i < genderedText.Length; i++)
                     genderedText[i].color = boyColor;
