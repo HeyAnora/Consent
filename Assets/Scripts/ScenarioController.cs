@@ -59,8 +59,11 @@ public class ScenarioController : MonoBehaviour
 
 
     //Stat Values
-    private int[] statValue = new int[3];
-    private string changeStat;
+        //which stat is being changed. 0 = sobriety, 1 = social, 2 = love
+    [SerializeField]
+    private string[] changeStat = new string[3];
+        //how much each stat is changed (first for button pressed, second for amount)
+    private int[,] statValue = new int[3,3];
 
     //Pass Phone
     [SerializeField]
@@ -80,7 +83,12 @@ public class ScenarioController : MonoBehaviour
     [SerializeField]
     private Sprite[] statbgSprite;
     [SerializeField]
-    private Sprite[] statButtonSprite; 
+    private Sprite[] statButtonSprite;
+    [SerializeField]
+    private Image[] statIcons;
+
+    private Color[] boyIconValue = new Color[3];
+    private Color[] girlIconValue = new Color[3];
 
 
     private GameController gController;
@@ -104,6 +112,12 @@ public class ScenarioController : MonoBehaviour
         {
             answerButton[i] = answers[i].GetComponentInChildren<Button>();
             answerText[i] = answers[i].GetComponentInChildren<Text>(); 
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            boyIconValue[i] = statIcons[i].color; 
+            girlIconValue[i] = statIcons[i].color;
         }
 
         passPhoneButton.onClick.AddListener(PassPhoneContinue);
@@ -189,77 +203,47 @@ public class ScenarioController : MonoBehaviour
                     //button 1 text + stat schange
                     answerText[0].text =
                         "";
-                    statValue[0] = 0;
-                    statQuote[0] = "";
+                    //sobriety
+                    statValue[0,0] = 1;
+                    //social
+                    statValue[0,1] = 1;
+                    //love
+                    statValue[0,2] = 1;
+
+
+                    statQuote[0] = "Hello this is a Quote";
 
                     //button 2 text + stat schange
                     answerText[1].text =
                         "";
 
-                    statValue[1] = 0;
-                    statQuote[1] = "";
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = -1;
+                    //love
+                    statValue[1, 2] = -1;
+
+                    statQuote[1] = "This is not a quote";
+
                     //button 3 text + stat schange
                     answerText[2].text =
                         "";
 
-                    statValue[2] = 0;
-                    statQuote[2] = "";
+                    //sobriety
+                    statValue[2, 0] = -2;
+                    //social
+                    statValue[2, 1] = -2;
+                    //love
+                    statValue[2, 2] = -2;
 
-                    //Stat Being Changed
-                    changeStat = "ChangeSobriety";
+                    statQuote[2] = "Insert some random shit here";
+
                     break;
 
-                case 1:
-
-                    //Dialogue text
-                    dialogue.text =
-                        "Shots!?";
-                    //button 1 text + stat schange
-                    answerText[0].text =
-                        "Bring it on";
-                    statValue[0] = 0;
-                    statQuote[0] = "";
-
-                    //button 2 text + stat schange
-                    answerText[1].text =
-                         "Ok but just one";
-                    statValue[1] = 0;
-                    statQuote[1] = "";
-
-                    //button 3 text + stat schange
-                    answerText[2].text =
-                         "Maybe later";
-                    statValue[2] = 0;
-                    statQuote[2] = "";
-
-                    //Stat Being Changed
-                    changeStat = "ChangeSobriety";
-                    break;
-
-                case 2:
-                    //Dialogue text
-                    dialogue.text =
-                        "I'm getting another beer. Want one?";
-                    //button 1 text + stat schange
-                    answerText[0].text = "No thanks, I'm driving";
-                    statValue[0] = 0;
-                    statQuote[0] = "";
-
-                    //button 2 text + stat schange
-                    answerText[1].text =
-                        "Sure, thanks";
-                    statValue[1] = 0;
-                    statQuote[1] = "";
-
-                    //button 3 text + stat schange
-                    answerText[2].text =
-                         "Ok, but I shouldn't drink too much, I'm driving";
-                    statValue[2] = 0;
-                    statQuote[2] = "";
-
-                    //Stat Being Changed
-                    changeStat = "ChangeSobriety";
-                    break;
+                //case 1:
+                    //insert code
+                    //break;
             }
 
             maleScenario.RemoveAt(scenario);
@@ -273,7 +257,48 @@ public class ScenarioController : MonoBehaviour
             switch (femaleScenario[scenario])
             {
                 default:
-                    //insert code
+                    //Dialogue text
+                    dialogue.text =
+                        "";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "";
+                    //sobriety
+                    statValue[0, 0] = 1;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 1;
+
+
+                    statQuote[0] = "Hello this is a Quote";
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = -1;
+                    //love
+                    statValue[1, 2] = -1;
+
+                    statQuote[1] = "This is not a quote";
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "";
+
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 1;
+
+                    statQuote[2] = "Insert some random shit here";
+
                     break;
 
                 case 1:
@@ -288,22 +313,30 @@ public class ScenarioController : MonoBehaviour
     //Button Presses
     public void SubmitAnswer_1()
     {
-        gController.SendMessage(changeStat, statValue[0]);
+        for (int i = 0; i < changeStat.Length; i++)
+        {
+            gController.SendMessage("Change" + changeStat[i], statValue[0,i]);
+        }
         EnableStatUI(true,statQuote[0]);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_2()
     {
-        gController.SendMessage(changeStat, statValue[1]);
-
+        for (int i = 0; i < changeStat.Length; i++)
+        {
+            gController.SendMessage("Change" + changeStat[i], statValue[1, i]);
+        }
         EnableStatUI(true,statQuote[1]);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_3()
     {
-        gController.SendMessage(changeStat, statValue[2]);
+        for (int i = 0; i < changeStat.Length; i++)
+        {
+            gController.SendMessage("Change" + changeStat[i], statValue[2, i]);
+        }
         EnableStatUI(true,statQuote[2]);
         EnableQuestionUI(false);
     }
@@ -330,7 +363,8 @@ public class ScenarioController : MonoBehaviour
             statText.text = quote; 
             statText.gameObject.SetActive(true);
             statBg.gameObject.SetActive(true);
-            statButton.gameObject.SetActive(true);
+            //statButton.gameObject.SetActive(true);
+            StartCoroutine(UpdateStats());    
         }
 
         else if (!active)
@@ -341,6 +375,65 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
+    private IEnumerator UpdateStats()
+    {
+        
+        if (!gController.CheckPlayer())
+        {
+            Color[] statColors = new Color[3];
+            for (int i = 0; i < statColors.Length; i++)
+                statColors[i] = boyIconValue[i];
+
+            float elapsedTime = 0;
+            float totalTime = 3;
+            while (elapsedTime < totalTime)
+            {
+                
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety()*.25f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial() * .25f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove() * .25f)), (elapsedTime / totalTime));
+                elapsedTime += Time.deltaTime;
+
+                Debug.Log(elapsedTime);
+                yield return null; 
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                boyIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
+                Debug.Log("SavingColor" + i);
+            }
+        }
+
+        else if (gController.CheckPlayer())
+        {
+            Color[] statColors = new Color[3];
+            for (int i = 0; i < statColors.Length; i++)
+                statColors[i] = girlIconValue[i];
+
+            float elapsedTime = 0;
+            float totalTime = 3;
+            while (elapsedTime < totalTime)
+            {
+                
+
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety() * .25f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial() * .25f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove() * .25f)), (elapsedTime / totalTime));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                girlIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
+                Debug.Log("SavingColor" + i);
+            }
+        }
+
+        statButton.gameObject.SetActive(true);
+    }
+
     public void StatButton()
     {
         statText.gameObject.SetActive(false);
@@ -349,8 +442,6 @@ public class ScenarioController : MonoBehaviour
         gController.ChangePlayer();
         PassPhone(); 
     }
-
-
 
     #endregion
 

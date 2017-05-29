@@ -49,25 +49,33 @@ public class GameController : MonoBehaviour
     public void ChangeSobriety(int change)
     {
         if (!currentPlayer)
-            boySobriety_ += change;
+            boySobriety_ = Mathf.Clamp( boySobriety_+ change,-2,2);
         else if (currentPlayer)
-            girlSobriety_ += change;
+            girlSobriety_ = Mathf.Clamp(girlSobriety_ + change, -2, 2);
+
+        Debug.Log("boy_Sob:" + boySobriety_ + ", girl_sob:" + girlSobriety_);
     }
 
     public void ChangeSocial(int change)
     {
         if (!currentPlayer)
-            boySocial_ += change;
+            boySocial_ = Mathf.Clamp(boySocial_ + change, -2, 2);
         else if (currentPlayer)
-            girlSocial_ += change;
+            girlSocial_ = Mathf.Clamp(girlSocial_ + change, -2, 2);
+
+        Debug.Log("boy_Soc:" + boySocial_ + ", girl_soc:" + girlSocial_);
     }
 
     public void ChangeLove(int change)
     {
         if (!currentPlayer)
-            boyLove_ += change;
+            boyLove_ = Mathf.Clamp(boyLove_ + change, -2, 2);
         else if (currentPlayer)
-            girlLove_ += change; 
+            girlLove_ = Mathf.Clamp(girlLove_ + change, -2, 2);
+
+        Debug.Log("boy_Love:" + boyLove_ + ", girl_Love:" + girlLove_);
+
+
     }
 
     #endregion
@@ -83,6 +91,7 @@ public class GameController : MonoBehaviour
             return girlSobriety_;
 
         else return 0;
+
     }
 
     public int CheckSocial()
