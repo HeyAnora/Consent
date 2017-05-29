@@ -15,25 +15,34 @@ public class GameController : MonoBehaviour
 
 #region Variables 
     //names
-    private string boyName_ = "";
-    private string girlName_ = "";
+    private string boyName_ = "MissingBoyName";
+    private string girlName_ = "MissingGirlName";
     //private string nameText;
 
     //stats
-    private int boySobriety_;
-    private int girlSobriety_;
+    private int boySobriety_ = 0;
+    private int girlSobriety_ = 0;
 
-    private int boySocial_;
-    private int girlSocial_;
+    private int boySocial_ = 0;
+    private int girlSocial_ = 0;
 
-    private int boyLove_;
-    private int girlLove_;
+    private int boyLove_ = 0;
+    private int girlLove_ = 0;
 
     //CurrentPlayer false = boy, true = girl
     [SerializeField]
     private bool currentPlayer = false;
 
     #endregion
+
+    void Start()
+    {
+        int randomPlayer = Random.Range(0, 1);
+        if (randomPlayer == 1)
+            currentPlayer = true;
+        else if (randomPlayer == 0)
+            currentPlayer = false; 
+    }
 
     #region ChangeStats
 
@@ -119,7 +128,7 @@ public class GameController : MonoBehaviour
         else if (gender == "girl")
             return girlName_;
 
-        else return null; 
+        else return "MissingName"; 
     }
 
     public void ChangeName(string name, bool isMale)
