@@ -54,9 +54,9 @@ public class GameController : MonoBehaviour
     public void ChangeSobriety(int change)
     {
         if (!currentPlayer)
-            boySobriety_ = Mathf.Clamp( boySobriety_+ change,-2,2);
+            boySobriety_ = Mathf.Clamp( boySobriety_+ change,-4,4);
         else if (currentPlayer)
-            girlSobriety_ = Mathf.Clamp(girlSobriety_ + change, -2, 2);
+            girlSobriety_ = Mathf.Clamp(girlSobriety_ + change, -4, 4);
 
         Debug.Log("boy_Sob:" + boySobriety_ + ", girl_sob:" + girlSobriety_);
     }
@@ -64,9 +64,9 @@ public class GameController : MonoBehaviour
     public void ChangeSocial(int change)
     {
         if (!currentPlayer)
-            boySocial_ = Mathf.Clamp(boySocial_ + change, -2, 2);
+            boySocial_ = Mathf.Clamp(boySocial_ + change, -4, 4);
         else if (currentPlayer)
-            girlSocial_ = Mathf.Clamp(girlSocial_ + change, -2, 2);
+            girlSocial_ = Mathf.Clamp(girlSocial_ + change, -4, 4);
 
         Debug.Log("boy_Soc:" + boySocial_ + ", girl_soc:" + girlSocial_);
     }
@@ -74,9 +74,9 @@ public class GameController : MonoBehaviour
     public void ChangeLove(int change)
     {
         if (!currentPlayer)
-            boyLove_ = Mathf.Clamp(boyLove_ + change, -2, 2);
+            boyLove_ = Mathf.Clamp(boyLove_ + change, -4, 4);
         else if (currentPlayer)
-            girlLove_ = Mathf.Clamp(girlLove_ + change, -2, 2);
+            girlLove_ = Mathf.Clamp(girlLove_ + change, -4, 4);
 
         Debug.Log("boy_Love:" + boyLove_ + ", girl_Love:" + girlLove_);
 

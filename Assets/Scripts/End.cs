@@ -91,6 +91,8 @@ public class End : MonoBehaviour
             stats[i].SetActive(false);
 
         StartCoroutine(Stay());
+        Camera main = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        main.backgroundColor = Color.black;
     }
 
     private void No()
@@ -99,6 +101,8 @@ public class End : MonoBehaviour
             stats[i].SetActive(false);
 
         StartCoroutine(Leave());
+        Camera main = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        main.backgroundColor = Color.black; 
     }
 
     private IEnumerator Stay()
@@ -109,8 +113,8 @@ public class End : MonoBehaviour
         Color startColor = bg.color;
         //Yes Bad
         if (gController.CheckSobriety(true) <= -2 || gController.CheckSobriety(false) <= -2 || 
-            gController.CheckSocial(true) <= -2 || gController.CheckSocial(false) <= -2 ||
-            gController.CheckLove(true) <= -2 || gController.CheckLove(false) <= -2 || 
+            gController.CheckSocial(true) <= -4 || gController.CheckSocial(false) <= -4 ||
+            gController.CheckLove(true) <= -4 || gController.CheckLove(false) <= -4 || 
             totalStat <= 0)
         {
             bg.gameObject.SetActive(true);

@@ -23,8 +23,13 @@ public class ScenarioController : MonoBehaviour
     [SerializeField]
     private List<int> femaleScenario = new List<int>();
     private int scenario;
-    private string[] statQuote = new string[3]; 
-
+    private string[] statQuote = new string[3];
+    [SerializeField]
+    private string[] sobrietyQuotes;
+    [SerializeField]
+    private string[] socialQuotes;
+    [SerializeField]
+    private string[] loveQuotes; 
     //UI
     [SerializeField]
     private GameObject[] answers;
@@ -191,12 +196,24 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
+    private string RandomQuote(string statType)
+    {
+        if (statType == "sobriety")
+            return sobrietyQuotes[Random.Range(0, sobrietyQuotes.Length)];
+        else if (statType == "social")
+            return socialQuotes[Random.Range(0, socialQuotes.Length)];
+        else if (statType == "love")
+            return loveQuotes[Random.Range(0, loveQuotes.Length)];
+        else
+            return "";
+    }
+
     //creates the scenario
     public void SetScenario()
     {
-        counter++; 
+        counter++;
 
-        //male scenarios
+    #region male scenarios
         if (!gController.CheckPlayer())
         {
             scenario = Random.Range(0, maleScenario.Count);
@@ -219,7 +236,7 @@ public class ScenarioController : MonoBehaviour
                     statValue[0,2] = 1;
 
 
-                    statQuote[0] = "Hello this is a Quote";
+                    statQuote[0] = RandomQuote("sobriety");
 
                     //button 2 text + stat schange
                     answerText[1].text =
@@ -232,7 +249,7 @@ public class ScenarioController : MonoBehaviour
                     //love
                     statValue[1, 2] = -1;
 
-                    statQuote[1] = "This is not a quote";
+                    statQuote[1] = RandomQuote("social");
 
                     //button 3 text + stat schange
                     answerText[2].text =
@@ -245,19 +262,246 @@ public class ScenarioController : MonoBehaviour
                     //love
                     statValue[2, 2] = -2;
 
-                    statQuote[2] = "Insert some random shit here";
+                    statQuote[2] = RandomQuote("love");
 
                     break;
 
-                //case 1:
-                    //insert code
-                    //break;
+    #region Mind Scenarios
+                case 1:
+                    //Dialogue text
+                    dialogue.text =
+                        "Shots!?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Bring it on!";
+                    //sobriety
+                    statValue[0, 0] = -2;
+                    //social
+                    statValue[0, 1] = 2;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Alright, but just one.";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "Not right now, maybe later";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 2:
+                    //Dialogue text
+                    dialogue.text =
+                        "I'm getting another beer. Want one?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "No thanks, someone should stay sober.";
+                    //sobriety
+                    statValue[0, 0] = 2;
+                    //social
+                    statValue[0, 1] = 0;
+                    //love
+                    statValue[0, 2] = 0;
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Sure, thanks!";
+
+                    //sobriety
+                    statValue[1, 0] = -2;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "Ok, but I shouldn't drink too much.";
+
+                    //sobriety
+                    statValue[2, 0] = -1;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 3:
+                    //Dialogue text
+                    dialogue.text =
+                        "How about some beer pong?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Hell yeah!";
+                    //sobriety
+                    statValue[0, 0] = -2;
+                    //social
+                    statValue[0, 1] = 2;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Just one game.";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "I'll just watch.";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 4:
+                    //Dialogue text
+                    dialogue.text =
+                        "You should share a drink with "+ gController.PlayerName("girl")+"!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I don't want either of us to drink too much.";
+                    //sobriety
+                    statValue[0, 0] = 1;
+                    //social
+                    statValue[0, 1] = 0;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "That's a great idea!";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 1;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "I'm not sure if " + gController.PlayerName("girl")+ " would like that or not." ;
+
+                    //sobriety
+                    statValue[2, 0] = +1;
+                    //social
+                    statValue[2, 1] = 0;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 5:
+                    //Dialogue text
+                    dialogue.text =
+                        "I bet you and " + gController.PlayerName("girl") +" would make a great drunk couple!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Shut-up, dude.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 1;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "I'm not going to pressure her into drinking.";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = 0;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "But first we have to get drunk!";
+
+                    //sobriety
+                    statValue[2, 0] = -2;
+                    //social
+                    statValue[2, 1] = 2;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+                    #endregion
+                    #region Social Scenarios
+                    #endregion
+                    #region Love Scenarios
+                    #endregion
             }
 
             maleScenario.RemoveAt(scenario);
         }
+        #endregion
 
-        //female scenarios
+    #region female scenarios
         else if (gController.CheckPlayer())
         {
             scenario = Random.Range(0, femaleScenario.Count);
@@ -308,14 +552,21 @@ public class ScenarioController : MonoBehaviour
                     statQuote[2] = "Insert some random shit here";
 
                     break;
-
+    #region Mind Scenarios
                 case 1:
                     //insert code
                     break;
+                    #endregion
+    #region Social Scenarios
+                    #endregion
+    #region Love Scenarios
+    #endregion
+
             }
 
             femaleScenario.RemoveAt(scenario);
         }
+    #endregion
     }
 
     //Button Presses
@@ -415,9 +666,9 @@ public class ScenarioController : MonoBehaviour
             while (elapsedTime < totalTime)
             {
                 
-                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) *.25f)), (elapsedTime / totalTime));
-                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
-                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) *.125f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
                 elapsedTime += Time.deltaTime;
 
                 //Debug.Log(elapsedTime);
@@ -445,9 +696,9 @@ public class ScenarioController : MonoBehaviour
             {
                 
 
-                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
-                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
-                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -465,15 +716,16 @@ public class ScenarioController : MonoBehaviour
 
     public void StatButton()
     {
-        statText.gameObject.SetActive(false);
-        statBg.gameObject.SetActive(false);
-        statButton.gameObject.SetActive(false);
         gController.ChangePlayer();
 
         if (counter <= 10)
             PassPhone();
         else
             SceneManager.LoadScene("End");
+
+        statText.gameObject.SetActive(false);
+        statBg.gameObject.SetActive(false);
+        statButton.gameObject.SetActive(false);
     }
 
     #endregion
