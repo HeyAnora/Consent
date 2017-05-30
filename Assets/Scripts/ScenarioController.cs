@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 
 public class ScenarioController : MonoBehaviour
 {
@@ -86,10 +87,14 @@ public class ScenarioController : MonoBehaviour
     private Sprite[] statButtonSprite;
     [SerializeField]
     private Image[] statIcons;
+    [SerializeField]
+    private Text[] valueText;
 
     private Color[] boyIconValue = new Color[3];
     private Color[] girlIconValue = new Color[3];
 
+    //to count number of turns
+    private int counter;
 
     private GameController gController;
     #endregion
@@ -97,6 +102,7 @@ public class ScenarioController : MonoBehaviour
     void Start()
     {
         gController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        gController.randomPlayer(); 
 
         for (int i = 0; i < maleScenario.Count; i++)
         {
@@ -188,6 +194,8 @@ public class ScenarioController : MonoBehaviour
     //creates the scenario
     public void SetScenario()
     {
+        counter++; 
+
         //male scenarios
         if (!gController.CheckPlayer())
         {
@@ -313,37 +321,44 @@ public class ScenarioController : MonoBehaviour
     //Button Presses
     public void SubmitAnswer_1()
     {
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[0,i]);
+            statNumber[i] = statValue[0, i];
         }
-        EnableStatUI(true,statQuote[0]);
+
+        EnableStatUI(true,statQuote[0],statNumber);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_2()
     {
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[1, i]);
+            statNumber[i] = statValue[1, i];
         }
-        EnableStatUI(true,statQuote[1]);
+        EnableStatUI(true,statQuote[1], statNumber);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_3()
     {
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[2, i]);
+            statNumber[i] = statValue[2, i];
         }
-        EnableStatUI(true,statQuote[2]);
+        EnableStatUI(true,statQuote[2],statNumber);
         EnableQuestionUI(false);
     }
     #endregion
 
     #region StatUI
-    private void EnableStatUI(bool active, string quote)
+    private void EnableStatUI(bool active, string quote, int[] statNumber)
     {
         if (active)
         {
@@ -363,8 +378,19 @@ public class ScenarioController : MonoBehaviour
             statText.text = quote; 
             statText.gameObject.SetActive(true);
             statBg.gameObject.SetActive(true);
-            //statButton.gameObject.SetActive(true);
-            StartCoroutine(UpdateStats());    
+            StartCoroutine(UpdateStats());
+
+            //change Number Text
+            string[] symbol = new string[3]; 
+            for (int i = 0; i < valueText.Length; i++)
+            {
+                if (statNumber[i] > 0)
+                    symbol[i] = "+";
+                else if (statNumber[i] <= 0)
+                    symbol[i] = "";
+
+                valueText[i].text = symbol[i] + statNumber[i]; 
+            }
         }
 
         else if (!active)
@@ -389,20 +415,22 @@ public class ScenarioController : MonoBehaviour
             while (elapsedTime < totalTime)
             {
                 
-                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety()*.25f)), (elapsedTime / totalTime));
-                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial() * .25f)), (elapsedTime / totalTime));
-                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove() * .25f)), (elapsedTime / totalTime));
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) *.25f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
                 elapsedTime += Time.deltaTime;
 
-                Debug.Log(elapsedTime);
+                //Debug.Log(elapsedTime);
                 yield return null; 
             }
 
             for (int i = 0; i < 3; i++)
             {
                 boyIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
-                Debug.Log("SavingColor" + i);
+                //Debug.Log("SavingColor" + i);
             }
+
+            gController.ChangeColor(boyIconValue);
         }
 
         else if (gController.CheckPlayer())
@@ -417,9 +445,9 @@ public class ScenarioController : MonoBehaviour
             {
                 
 
-                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety() * .25f)), (elapsedTime / totalTime));
-                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial() * .25f)), (elapsedTime / totalTime));
-                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove() * .25f)), (elapsedTime / totalTime));
+                statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
+                statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
+                statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .25f)), (elapsedTime / totalTime));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -427,8 +455,9 @@ public class ScenarioController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 girlIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
-                Debug.Log("SavingColor" + i);
+                //Debug.Log("SavingColor" + i);
             }
+            gController.ChangeColor(girlIconValue);
         }
 
         statButton.gameObject.SetActive(true);
@@ -440,7 +469,11 @@ public class ScenarioController : MonoBehaviour
         statBg.gameObject.SetActive(false);
         statButton.gameObject.SetActive(false);
         gController.ChangePlayer();
-        PassPhone(); 
+
+        if (counter <= 10)
+            PassPhone();
+        else
+            SceneManager.LoadScene("End");
     }
 
     #endregion

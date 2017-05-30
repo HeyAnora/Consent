@@ -33,15 +33,20 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private bool currentPlayer = false;
 
+    //Audio
+    private AudioSource audi;
+
+    //color of icons
+    public Color[] boyIconValues = new Color[3];
+    public Color[] girlIconValues = new Color[3]; 
+
     #endregion
 
     void Start()
     {
-        int randomPlayer = Random.Range(0, 1);
-        if (randomPlayer == 1)
-            currentPlayer = true;
-        else if (randomPlayer == 0)
-            currentPlayer = false; 
+
+        audi = GetComponent<AudioSource>();
+        audi.Play(); 
     }
 
     #region ChangeStats
@@ -78,48 +83,66 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void ChangeColor(Color[] newColor)
+    {
+        Debug.Log("ChangingColor");
+        if (!currentPlayer)
+            for (int i = 0; i < boyIconValues.Length; i++)
+            {
+                boyIconValues[i] = newColor[i];
+                //Debug.Log("ColorChanged");
+                //Debug.Log(boyIconValues[i]);
+            }
+        else if (currentPlayer)
+            for (int i = 0; i < girlIconValues.Length; i++)
+            {
+                girlIconValues[i] = newColor[i];
+                //Debug.Log("ColorChanged");
+                //Debug.Log(girlIconValues[i]);
+            }
+    }
+
     #endregion
 
     #region CheckStats
 
-    public int CheckSobriety()
+    public int CheckSobriety(bool gender)
     {
-        if (!currentPlayer)
+        if (!gender)
             return boySobriety_;
 
-        else if (currentPlayer)
+        else if (gender)
             return girlSobriety_;
 
         else return 0;
 
     }
 
-    public int CheckSocial()
+    public int CheckSocial(bool gender)
     {
-        if (!currentPlayer)
+        if (!gender)
             return boySocial_;
 
-        else if (currentPlayer)
+        else if (gender)
             return girlSocial_;
 
         else return 0;
     }
 
-    public int CheckLove()
+    public int CheckLove(bool gender)
     {
-        if (!currentPlayer)
+        if (!gender)
             return boyLove_;
 
-        else if (currentPlayer)
+        else if (gender)
             return girlLove_;
 
         else return 0;
     }
 
-
-
     #endregion
 
+    #region Player
     public void ChangePlayer()
     {
         currentPlayer = !currentPlayer;
@@ -140,19 +163,101 @@ public class GameController : MonoBehaviour
         else return "MissingName"; 
     }
 
-    public void ChangeName(string name, bool isMale)
+    public void ChangeName(string name)
     {
-        if (isMale && boyName_ == "")
+        if (!currentPlayer)
             boyName_ = name;
-        else if (isMale && boyName_ != "")
-            girlName_ = name;
-        else if (!isMale && girlName_ == "")
-            girlName_ = name;
-        else if (!isMale && girlName_ != "")
-            boyName_ = name;
+        else if (currentPlayer)
+            girlName_ = name; 
 
         Debug.Log(girlName_ + " + " + boyName_);
     }
 
+    public void randomPlayer()
+    {
+        int randomPlayer = Random.Range(0, 1);
+        if (randomPlayer == 1)
+            currentPlayer = true;
+        else if (randomPlayer == 0)
+            currentPlayer = false;
+    }
+    #endregion
 
+    #region Audio
+
+    public IEnumerator PlayAudio(AudioClip clip)
+    {
+        ////fade current audio
+        //float fadeTime = 0;
+        //float totalTime = 5;
+        //while (fadeTime < totalTime)
+        //{
+        //    audi.volume = Mathf.Lerp(audi.volume, 0, fadeTime / totalTime);
+        //    fadeTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+
+        //audi.clip = clip;
+        //audi.Play();
+        ////fade in
+        //fadeTime = 0;
+        //totalTime = 5;
+        //while (fadeTime < totalTime)
+        //{
+        //    audi.volume = Mathf.Lerp(audi.volume, 1, fadeTime / totalTime);
+        //    fadeTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        float fadeOut = .1f;
+        while (audi.volume > 0)
+        {
+            audi.volume = Mathf.MoveTowards(audi.volume, 0, fadeOut * Time.deltaTime);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2);
+
+        audi.clip = clip;
+        audi.Play();
+
+        float fadeIn = .1f;
+        while (audi.volume < 1)
+        {
+            audi.volume = Mathf.MoveTowards(audi.volume, 1, fadeIn * Time.deltaTime);
+            yield return null;
+        }
+
+    }
+
+    public IEnumerator FadeAudio(bool direction,float fadeTime)
+    {
+        float totalTime = fadeTime;
+        float initialTime = 0;
+        float initialVolume = audi.volume; 
+
+        //true for fade in
+        if (direction ==true)
+        {
+            while (initialTime < fadeTime)
+            {
+                audi.volume = Mathf.Lerp(initialVolume, 1, initialTime / totalTime);
+                initialTime += Time.deltaTime; 
+                yield return null; 
+            }
+        }
+
+        //false for fade out
+        else if (direction ==false)
+        {
+            while (initialTime < fadeTime)
+            {
+                audi.volume = Mathf.Lerp(initialVolume, 0, initialTime / totalTime);
+                initialTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+    }
+    #endregion
 }

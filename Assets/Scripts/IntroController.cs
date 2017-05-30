@@ -10,7 +10,7 @@ public class IntroController : MonoBehaviour
     private Sprite[] panels;
 
     [SerializeField]
-    private float waitTime;
+    private float[] waitTime;
 
     [SerializeField]
     private Image image;
@@ -20,6 +20,9 @@ public class IntroController : MonoBehaviour
 
     [SerializeField]
     private Text text;
+
+    [SerializeField]
+    private AudioClip clip; 
 
     private GameController gController; 
 
@@ -34,7 +37,8 @@ public class IntroController : MonoBehaviour
             gController.PlayerName("boy") +" is hosting a party tonight, and " + gController.PlayerName("girl") + " is on the way.\n\n" +
            
             "They are both hoping for a fun night of drinks and games with their friends. Perhaps afterwords, if everything goes right, they will take their realtionship to the next level."
-            ;        
+            ;
+        StartCoroutine(gController.PlayAudio(clip));
     }
 	
     public void Continue()
@@ -50,7 +54,7 @@ public class IntroController : MonoBehaviour
         for (int i = 0; i < panels.Length; i++)
         {
             image.sprite = panels[i];
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(waitTime[i]);
         }
 
         Scene scene = SceneManager.GetActiveScene();

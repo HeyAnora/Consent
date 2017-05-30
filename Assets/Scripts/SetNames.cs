@@ -13,7 +13,6 @@ public class SetNames : MonoBehaviour
     private Button continueButton;
 
     private GameController gController;
-    private bool isMale = false;
     private string playerName;
     private bool nameEntered = false;
     private int players = 0;
@@ -32,7 +31,7 @@ public class SetNames : MonoBehaviour
     [SerializeField]
     private Sprite boyButtonPressed;
 
-    private SpriteState boySpriteState; 
+    private SpriteState boySpriteState = new SpriteState(); 
 
 	// Use this for initialization
 	void Start ()
@@ -56,14 +55,14 @@ public class SetNames : MonoBehaviour
     {
         if (nameEntered)
         {
-            gController.ChangeName(playerName, isMale);
+            gController.ChangeName(playerName);
             players += 1;
             nameEntered = false;
 
             if (players <= 1)
             {
+                gController.ChangePlayer();
                 input.text = "";
-                isMale = true;
                 for (int i = 0; i < genderedText.Length; i++)
                     genderedText[i].color = boyColor;
                 genderedImage.sprite = boySprite;
