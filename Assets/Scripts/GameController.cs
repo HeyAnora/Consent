@@ -38,7 +38,10 @@ public class GameController : MonoBehaviour
 
     //color of icons
     public Color[] boyIconValues = new Color[3];
-    public Color[] girlIconValues = new Color[3]; 
+    public Color[] girlIconValues = new Color[3];
+
+    public int[] boyStatValues = new int[3];
+    public int[] girlStatValues = new int[3]; 
 
     #endregion
 
@@ -85,7 +88,7 @@ public class GameController : MonoBehaviour
 
     public void ChangeColor(Color[] newColor)
     {
-        Debug.Log("ChangingColor");
+        //Debug.Log("ChangingColor");
         if (!currentPlayer)
             for (int i = 0; i < boyIconValues.Length; i++)
             {
@@ -99,6 +102,20 @@ public class GameController : MonoBehaviour
                 girlIconValues[i] = newColor[i];
                 //Debug.Log("ColorChanged");
                 //Debug.Log(girlIconValues[i]);
+            }
+    }
+
+    public void ChangeStatTextValue(int[] statValue)
+    {
+        if (!currentPlayer)
+            for (int i = 0; i < boyStatValues.Length; i++)
+            {
+                boyStatValues[i] = statValue[i];
+            }
+        else if (currentPlayer)
+            for (int i = 0; i < girlStatValues.Length; i++)
+            {
+                girlStatValues[i] = statValue[i];
             }
     }
 

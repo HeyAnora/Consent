@@ -26,6 +26,10 @@ public class End : MonoBehaviour
     [SerializeField]
     private Image[] girlStatIcons;
     [SerializeField]
+    private Text[] boyStatText;
+    [SerializeField]
+    private Text[] girlStatText; 
+    [SerializeField]
     private GameObject[] stats;
 
     //endings
@@ -78,7 +82,9 @@ public class End : MonoBehaviour
         for (int i = 0; i < boyStatIcons.Length; i++)
         {
             boyStatIcons[i].color = gController.boyIconValues[i];
-            girlStatIcons[i].color = gController.girlIconValues[i]; 
+            girlStatIcons[i].color = gController.girlIconValues[i];
+            boyStatText[i].text = gController.boyStatValues[i].ToString();
+            girlStatText[i].text = gController.girlStatValues[i].ToString();
         }
 
         for (int i = 0; i < stats.Length; i++)

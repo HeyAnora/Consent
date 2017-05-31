@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class ScenarioController : MonoBehaviour
 {
@@ -95,8 +95,13 @@ public class ScenarioController : MonoBehaviour
     [SerializeField]
     private Text[] valueText;
 
+    [SerializeField]
     private Color[] boyIconValue = new Color[3];
+    [SerializeField]
     private Color[] girlIconValue = new Color[3];
+    private int[] boyStatValue = new int[3];
+    private int[] girlStatValue = new int[3]; 
+
 
     //to count number of turns
     private int counter;
@@ -127,8 +132,8 @@ public class ScenarioController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            boyIconValue[i] = statIcons[i].color; 
-            girlIconValue[i] = statIcons[i].color;
+            boyStatValue[i] = 50;
+            girlStatValue[i] = 50; 
         }
 
         passPhoneButton.onClick.AddListener(PassPhoneContinue);
@@ -553,9 +558,9 @@ public class ScenarioController : MonoBehaviour
 
                     break;
     #region Mind Scenarios
-                case 1:
+                //case 1:
                     //insert code
-                    break;
+                   // break;
                     #endregion
     #region Social Scenarios
                     #endregion
@@ -572,57 +577,57 @@ public class ScenarioController : MonoBehaviour
     //Button Presses
     public void SubmitAnswer_1()
     {
-        int[] statNumber = new int[3];
+        //int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[0,i]);
-            statNumber[i] = statValue[0, i];
+            //statNumber[i] = statValue[0, i];
         }
 
-        EnableStatUI(true,statQuote[0],statNumber);
+        EnableStatUI(true,statQuote[0]);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_2()
     {
-        int[] statNumber = new int[3];
+        //int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[1, i]);
-            statNumber[i] = statValue[1, i];
+            //statNumber[i] = statValue[1, i];
         }
-        EnableStatUI(true,statQuote[1], statNumber);
+        EnableStatUI(true,statQuote[1]);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_3()
     {
-        int[] statNumber = new int[3];
+        //int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[2, i]);
-            statNumber[i] = statValue[2, i];
+            //statNumber[i] = statValue[2, i];
         }
-        EnableStatUI(true,statQuote[2],statNumber);
+        EnableStatUI(true,statQuote[2]);
         EnableQuestionUI(false);
     }
     #endregion
 
     #region StatUI
-    private void EnableStatUI(bool active, string quote, int[] statNumber)
+    private void EnableStatUI(bool active, string quote)
     {
         if (active)
         {
             //boy
             if (!gController.CheckPlayer())
             {
-                statBg.sprite = statbgSprite[0];
+                //statBg.sprite = statbgSprite[0];
                 statButtonImage.sprite = statButtonSprite[0];
             }
             //girl
             else if (gController.CheckPlayer())
             {
-                statBg.sprite = statbgSprite[1];
+                //statBg.sprite = statbgSprite[1];
                 statButtonImage.sprite = statButtonSprite[1];
             }
 
@@ -632,16 +637,16 @@ public class ScenarioController : MonoBehaviour
             StartCoroutine(UpdateStats());
 
             //change Number Text
-            string[] symbol = new string[3]; 
-            for (int i = 0; i < valueText.Length; i++)
-            {
-                if (statNumber[i] > 0)
-                    symbol[i] = "+";
-                else if (statNumber[i] <= 0)
-                    symbol[i] = "";
+            //string[] symbol = new string[3]; 
+            //for (int i = 0; i < valueText.Length; i++)
+            //{
+            //    if (statNumber[i] > 0)
+            //        symbol[i] = "+";
+            //    else if (statNumber[i] <= 0)
+            //        symbol[i] = "";
 
-                valueText[i].text = symbol[i] + statNumber[i]; 
-            }
+            //    valueText[i].text = symbol[i] + statNumber[i]; 
+            //}
         }
 
         else if (!active)
@@ -663,9 +668,24 @@ public class ScenarioController : MonoBehaviour
 
             float elapsedTime = 0;
             float totalTime = 3;
+
+            //string[] symbol = new string[3];
+            //for (int i = 0; i < valueText.Length; i++)
+            //{
+            //    if (statNumber[i] > 0)
+            //        symbol[i] = "+";
+            //    else if (statNumber[i] <= 0)
+            //        symbol[i] = "";
+            //}
+
             while (elapsedTime < totalTime)
             {
-                
+
+                valueText[0].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[0], ((gController.CheckSobriety(gController.CheckPlayer())+4)*12.5f), elapsedTime / totalTime)).ToString();
+                valueText[1].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[1], ((gController.CheckSocial(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
+                valueText[2].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[2], ((gController.CheckLove(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
+
+
                 statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) *.125f)), (elapsedTime / totalTime));
                 statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
                 statIcons[2].color = Color.Lerp(statColors[2], new Color(statColors[2].r, statColors[2].g, statColors[2].b, .502f + (gController.CheckLove(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
@@ -678,10 +698,12 @@ public class ScenarioController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 boyIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
+                boyStatValue[i] = int.Parse(valueText[i].text);
                 //Debug.Log("SavingColor" + i);
             }
 
             gController.ChangeColor(boyIconValue);
+            gController.ChangeStatTextValue(boyStatValue);
         }
 
         else if (gController.CheckPlayer())
@@ -692,9 +714,21 @@ public class ScenarioController : MonoBehaviour
 
             float elapsedTime = 0;
             float totalTime = 3;
+
+            //string[] symbol = new string[3];
+            //for (int i = 0; i < valueText.Length; i++)
+            //{
+            //    if (statNumber[i] > 0)
+            //        symbol[i] = "+";
+            //    else if (statNumber[i] <= 0)
+            //        symbol[i] = "";
+            //}
+
             while (elapsedTime < totalTime)
             {
-                
+                valueText[0].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[0], ((gController.CheckSobriety(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
+                valueText[1].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[1], ((gController.CheckSocial(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
+                valueText[2].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[2], ((gController.CheckLove(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
 
                 statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
                 statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
@@ -706,9 +740,12 @@ public class ScenarioController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 girlIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
+                girlStatValue[i] = int.Parse(valueText[i].text);
                 //Debug.Log("SavingColor" + i);
             }
+
             gController.ChangeColor(girlIconValue);
+            gController.ChangeStatTextValue(girlStatValue);
         }
 
         statButton.gameObject.SetActive(true);
