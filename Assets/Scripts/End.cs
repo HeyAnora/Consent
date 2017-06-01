@@ -117,10 +117,13 @@ public class End : MonoBehaviour
         float initialTime = 0;
         float totalTime = 5;
         Color startColor = bg.color;
+
+        //fadeout audio
+        StartCoroutine(gController.FadeAudio(false, totalTime));
         //Yes Bad
-        if (gController.CheckSobriety(true) <= -2 || gController.CheckSobriety(false) <= -2 || 
-            gController.CheckSocial(true) <= -4 || gController.CheckSocial(false) <= -4 ||
-            gController.CheckLove(true) <= -4 || gController.CheckLove(false) <= -4 || 
+        if (gController.CheckSobriety(true) <= -3 || gController.CheckSobriety(false) <= -3 || 
+            gController.CheckSocial(true) <= -3 || gController.CheckSocial(false) <= -3 ||
+            gController.CheckLove(true) <= -3 || gController.CheckLove(false) <= -3 || 
             totalStat <= 0)
         {
             bg.gameObject.SetActive(true);
@@ -130,15 +133,13 @@ public class End : MonoBehaviour
                 yield return new WaitForSeconds(endWaitYesBad[i]);
             }
 
-            //fadeout
-           StartCoroutine(gController.FadeAudio(false, totalTime));
             while (initialTime < totalTime)
             {
                 bg.color = Color.Lerp(startColor,new Color(bg.color.r, bg.color.g, bg.color.b, 0),initialTime/totalTime);
                 initialTime += Time.deltaTime;
                 yield return null;
             }
-
+            yield return new WaitForSeconds(2);
             Restart();
         }
         //Yes Good
@@ -158,7 +159,7 @@ public class End : MonoBehaviour
                 initialTime += Time.deltaTime;
                 yield return null;
             }
-
+            yield return new WaitForSeconds(2);
             Restart();
         }
     }
@@ -169,6 +170,10 @@ public class End : MonoBehaviour
         float totalTime = 5;
         Color startColor = bg.color;
         bg.gameObject.SetActive(true);
+
+        //fadeout audio
+        StartCoroutine(gController.FadeAudio(false, totalTime));
+
         for (int i = 0; i < endNoGood.Length; i++)
         {
             bg.sprite = endNoGood[i];
@@ -181,7 +186,7 @@ public class End : MonoBehaviour
             initialTime += Time.deltaTime;
             yield return null;
         }
-
+        yield return new WaitForSeconds(2);
         Restart();
 
     }

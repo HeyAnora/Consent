@@ -234,7 +234,7 @@ public class GameController : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         audi.clip = clip;
         audi.Play();

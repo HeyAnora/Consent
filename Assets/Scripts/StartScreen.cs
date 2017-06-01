@@ -13,12 +13,22 @@ public class StartScreen : MonoBehaviour
 
     private bool interactable = false;
     [SerializeField]
-    private GameController gController; 
+    private GameController gController;
+    [SerializeField]
+    private Camera main;
+    [SerializeField]
+    private Color bgColor;
+    [SerializeField]
+    private Text infoText;
+    [SerializeField]
+    private Button continueButton; 
 
     void Start()
     {
         StartCoroutine(FadeIn());
         text.gameObject.SetActive(false);
+
+        continueButton.onClick.AddListener(ButtonPress);
     }
 
 	// Update is called once per frame
@@ -26,10 +36,25 @@ public class StartScreen : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && interactable == true)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex + 1);
+            interactable = false; 
+            SpawnInfo();
         }
 	}
+
+    private void SpawnInfo()
+    {
+        text.gameObject.SetActive(false);
+        bg.gameObject.SetActive(false);
+        main.backgroundColor = bgColor;
+        infoText.gameObject.SetActive(true);
+        continueButton.gameObject.SetActive(true);
+    }
+
+    public void ButtonPress()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex + 1);
+    }
 
     private IEnumerator FadeIn()
     {

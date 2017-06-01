@@ -94,6 +94,9 @@ public class ScenarioController : MonoBehaviour
     private Image[] statIcons;
     [SerializeField]
     private Text[] valueText;
+    [SerializeField]
+    private Text[] changeText; 
+    private string[] symbol = new string[3];
 
     [SerializeField]
     private Color[] boyIconValue = new Color[3];
@@ -309,7 +312,7 @@ public class ScenarioController : MonoBehaviour
                     //sobriety
                     statValue[2, 0] = 1;
                     //social
-                    statValue[2, 1] = -1;
+                    statValue[2, 1] = -2;
                     //love
                     statValue[2, 2] = 0;
 
@@ -327,7 +330,7 @@ public class ScenarioController : MonoBehaviour
                     //sobriety
                     statValue[0, 0] = 2;
                     //social
-                    statValue[0, 1] = 0;
+                    statValue[0, 1] = -1;
                     //love
                     statValue[0, 2] = 0;
 
@@ -353,7 +356,7 @@ public class ScenarioController : MonoBehaviour
                     //sobriety
                     statValue[2, 0] = -1;
                     //social
-                    statValue[2, 1] = 1;
+                    statValue[2, 1] = 0;
                     //love
                     statValue[2, 2] = 0;
 
@@ -441,7 +444,7 @@ public class ScenarioController : MonoBehaviour
                         "I'm not sure if " + gController.PlayerName("girl")+ " would like that or not." ;
 
                     //sobriety
-                    statValue[2, 0] = +1;
+                    statValue[2, 0] = 1;
                     //social
                     statValue[2, 1] = 0;
                     //love
@@ -461,7 +464,7 @@ public class ScenarioController : MonoBehaviour
                     //sobriety
                     statValue[0, 0] = 0;
                     //social
-                    statValue[0, 1] = -1;
+                    statValue[0, 1] = -2;
                     //love
                     statValue[0, 2] = 1;
 
@@ -495,11 +498,462 @@ public class ScenarioController : MonoBehaviour
                     statQuote[2] = RandomQuote("sobriety");
 
                     break;
+                #endregion
+
+                #region Social Scenarios
+
+                case 6:
+                    //Dialogue text
+                    dialogue.text =
+                        "Dude, go talk to " + gController.PlayerName("girl") + ", make sure she stays!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I don't want to pressure her.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "You're right, right after she's done with her friends.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = -1;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "I'll do it later. You and I are hanging out right now!";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 2;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 7:
+                    //Dialogue text
+                    dialogue.text =
+                        "Joe went upstairs with some girl. She was drunk, but super hot!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "We should go check on her!";
+                    //sobriety
+                    statValue[0, 0] = 2;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Let's go Joe, what a stud!";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "I hope she wasn't too drunk...";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 8:
+                    //Dialogue text
+                    dialogue.text =
+                        "Why havn't you gone upstairs with "+ gController.PlayerName("girl")+ " yet? She's been eyeing you all night!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I'm just waiting for the right time.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "I thought we were hanging out, bored of me already?";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "I think I heard someone making out up there... I don't want to interrupt.";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 9:
+                    //Dialogue text
+                    dialogue.text =
+                        "Wow, that's the third couple I've seen enter your bathroom!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Really? Why so many?";
+                    //sobriety
+                    statValue[0, 0] = 1;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Alcohol makes people do strange things.";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = -2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "Don't they know what I do in there?";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 2;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 10:
+                    //Dialogue text
+                    dialogue.text =
+                        "Bro, I got condoms if you need.";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Bruh, I've been prepared for days!";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = -1;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                        "Ugh, I never use condoms.";
+
+                    //sobriety
+                    statValue[1, 0] = -2;
+                    //social
+                    statValue[1, 1] = -2;
+                    //love
+                    statValue[1, 2] = -2;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                        "Thanks, but I'm not sure if anything will happen.";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+                #endregion
+                #region Love Scenarios
+                case 11:
+                    //Dialogue text
+                    dialogue.text =
+                        gController.PlayerName("girl") + " is looking good tonight!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Does she?";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = -2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "She always looks good.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "She dressed really nice tonight.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = 1;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 12:
+                    //Dialogue text
+                    dialogue.text =
+                       "How are things going with " +gController.PlayerName("girl")+"?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I'm happier than ever!";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 2;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I'm not sure where things are heading.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 0;
+                    //love
+                    statValue[1, 2] = -2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I asked her to stay after. I don't think she will.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 13:
+                    //Dialogue text
+                    dialogue.text =
+                       "Are you and " +gController.PlayerName("girl")+ " exclusive? I have a girl to introduce to you.";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Well, we've only been on a few dates...";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = -2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "What? Of course we are!";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = 0;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I don't think "+ gController.PlayerName("girl")+ " would like it.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 14:
+                    //Dialogue text
+                    dialogue.text =
+                        "I think Tessa has the hots for you. Make a move or I will, she's super drunk right now.";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "She is pretty hot...";
+                    //sobriety
+                    statValue[0, 0] = -1;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = -2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I'm already dating " + gController.PlayerName("girl") + " and you should wait for Tessa to sober up.";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = 0;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "Dude, that's disgusting. You can't take advantage of a drunk person!";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -2;
+                    //love
+                    statValue[2, 2] = 1;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 15:
+                    //Dialogue text
+                    dialogue.text =
+                        "So when is your next date with " + gController.PlayerName("girl") + "?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I'm going to wait for her to ask me.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = -1;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I'm not sure, I'm waiting to see how tonight goes.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = -2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I have something awesome planned for next weekend, she's going to love it!";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 2;
+                    //love
+                    statValue[2, 2] = 2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
                     #endregion
-                    #region Social Scenarios
-                    #endregion
-                    #region Love Scenarios
-                    #endregion
+
             }
 
             maleScenario.RemoveAt(scenario);
@@ -528,7 +982,7 @@ public class ScenarioController : MonoBehaviour
                     statValue[0, 2] = 1;
 
 
-                    statQuote[0] = "Hello this is a Quote";
+                    statQuote[0] = RandomQuote("love");
 
                     //button 2 text + stat schange
                     answerText[1].text =
@@ -541,7 +995,7 @@ public class ScenarioController : MonoBehaviour
                     //love
                     statValue[1, 2] = -1;
 
-                    statQuote[1] = "This is not a quote";
+                    statQuote[1] = RandomQuote("love");
 
                     //button 3 text + stat schange
                     answerText[2].text =
@@ -554,18 +1008,688 @@ public class ScenarioController : MonoBehaviour
                     //love
                     statValue[2, 2] = 1;
 
-                    statQuote[2] = "Insert some random shit here";
+                    statQuote[2] = RandomQuote("love");
 
                     break;
-    #region Mind Scenarios
-                //case 1:
-                    //insert code
-                   // break;
+
+                #region Mind Scenarios
+                case 1:
+                    //Dialogue text
+                    dialogue.text =
+                        "Let's fill up that Solo cup!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Alright, but not too much. I havn't eaten yet.";
+                    //sobriety
+                    statValue[0, 0] = -1;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Fill it up!";
+
+                    //sobriety
+                    statValue[1, 0] = -2;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I think I'll just have a Coke.";
+
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 2:
+                    //Dialogue text
+                    dialogue.text =
+                        "I'm going to mix some drinks. Want anything?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Suprise me!";
+                    //sobriety
+                    statValue[0, 0] = -2;
+                    //social
+                    statValue[0, 1] = 2;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Rum and Coke, but easy on the rum.";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "No thanks, I'm good."; 
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 3:
+                    //Dialogue text
+                    dialogue.text =
+                        "This week was intense, let's unwind!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Ok, but I don't want to get wasted.";
+                    //sobriety
+                    statValue[0, 0] = -1;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Time for some serious drinking!";
+
+                    //sobriety
+                    statValue[1, 0] = -2;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "Blegh, I think I've had enough to drink.";
+
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 4:
+                    //Dialogue text
+                    dialogue.text =
+                        "Go take shots with " + gController.PlayerName("boy")+"!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Sounds like fun!";
+                    //sobriety
+                    statValue[0, 0] = -2;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Just one.";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 1;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I don't want to pressure him into drinking.";
+
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -2;
+                    //love
+                    statValue[2, 2] = 2;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+
+                case 5:
+                    //Dialogue text
+                    dialogue.text =
+                        "Let's play some drinking games with the boys!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "You mean own the boys at some drinking games!";
+                    //sobriety
+                    statValue[0, 0] = -2;
+                    //social
+                    statValue[0, 1] = 2;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("sobriety");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I'll pass, I don't want to embarrass " +gController.PlayerName("boy")+".";
+
+                    //sobriety
+                    statValue[1, 0] = 2;
+                    //social
+                    statValue[1, 1] = -1;
+                    //love
+                    statValue[1, 2] = 1;
+
+                    statQuote[1] = RandomQuote("sobriety");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I'd rather not, "+gController.PlayerName("boy") + " might not want to drink.";
+
+                    //sobriety
+                    statValue[2, 0] = 1;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 2;
+
+                    statQuote[2] = RandomQuote("sobriety");
+
+                    break;
+                #endregion
+                #region Social Scenarios
+                case 6:
+                    //Dialogue text
+                    dialogue.text =
+                        "Truth or dare? Or just dare, I dare you to have sex tonight!";
+                    //button 1 text + stat change
+                    answerText[0].text =
+                        "I dare you to shut-up!";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = 1;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Truth: I might, but not because of some dumb dare.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 1;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "Like I don't feel pressured enough already?";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -2;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 7:
+                    //Dialogue text
+                    dialogue.text =
+                        "Truth or truth: Have you and "+ gController.PlayerName("boy")+" had sex yet?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Not yet...";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -2;
+                    //love
+                    statValue[0, 2] = -1;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "No, do you think he's going to lose interest?";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = -1;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "No, we will when we are both ready.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = 2;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 8:
+                    //Dialogue text
+                    dialogue.text =
+                        "Are you and "+ gController.PlayerName("boy") +" just going to go upstairs already?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I'm not going to make the first move.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -1;
+                    //love
+                    statValue[0, 2] = -1;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I'm hanging out with you guys!";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 2;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I'm not sure if I want to.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = -1;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 9:
+                    //Dialogue text
+                    dialogue.text =
+                        "The bathroom has been constantly occupied by people making out.";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Wow, that's nasty!";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -2;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "I guess alcohol makes people horny.";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "This is a party, there has to be a better place and time to make out!";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 1;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+
+                case 10:
+                    //Dialogue text
+                    dialogue.text =
+                        "Tessa went upstairs with some rando. She was pretty drunk, but the guy was hot!";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Should we go check on her?";
+                    //sobriety
+                    statValue[0, 0] = 1;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 0;
+
+
+                    statQuote[0] = RandomQuote("social");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Wow, go Tessa!";
+
+                    //sobriety
+                    statValue[1, 0] = -1;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 0;
+
+                    statQuote[1] = RandomQuote("social");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I hope she's not too drunk.";
+
+                    //sobriety
+                    statValue[2, 0] = 2;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = 0;
+
+                    statQuote[2] = RandomQuote("social");
+
+                    break;
+                #endregion
+                #region Love Scenarios
+
+                case 11:
+                    //Dialogue text
+                    dialogue.text =
+                        "So what's up with you and " + gController.PlayerName("boy")+"?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "I think it's been going well.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 1;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "It's been going great!";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "He's nice and all, but I don't know...";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = -2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 12:
+                    //Dialogue text
+                    dialogue.text =
+                        "Did he ask you to stay the night? Do you want to?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Yes, and I don't know.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = -1;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Yes and yes, but only if he's sober.";
+
+                    //sobriety
+                    statValue[1, 0] = 1;
+                    //social
+                    statValue[1, 1] = 0;
+                    //love
+                    statValue[1, 2] = 2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "I don't think I want to stay.";
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = -2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 13:
+                    //Dialogue text
+                    dialogue.text =
+                        "I heard that Jenna has been flirting with " + gController.PlayerName("boy") +".";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "It's just a rumor. "+gController.PlayerName("boy")+ " wouldn't flirt with other girls.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = -2;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "He likes me way more than Jenna.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = 1;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "Really? Maybe I should ask him if anything is going on.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = 1;
+                    //love
+                    statValue[2, 2] = -2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 14:
+                    //Dialogue text
+                    dialogue.text =
+                        "Have you talked to your ex at all?";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "He texted me last week, but I ignored it.";
+                    //sobriety
+                    statValue[0, 0] = 0;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "We've texted a little.";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = 1;
+                    //love
+                    statValue[1, 2] = -1;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "We've had a few conversations, I might still have some feelings.";
+
+                    //sobriety
+                    statValue[2, 0] = 0;
+                    //social
+                    statValue[2, 1] = -1;
+                    //love
+                    statValue[2, 2] = -2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
+                case 15:
+                    //Dialogue text
+                    dialogue.text =
+                        "You should share a drink and a kiss with "+ gController.PlayerName("boy")+".";
+                    //button 1 text + stat schange
+                    answerText[0].text =
+                        "Perhaps a kiss, but I want to stop drinking.";
+                    //sobriety
+                    statValue[0, 0] = 2;
+                    //social
+                    statValue[0, 1] = 1;
+                    //love
+                    statValue[0, 2] = 2;
+
+
+                    statQuote[0] = RandomQuote("love");
+
+                    //button 2 text + stat schange
+                    answerText[1].text =
+                       "Eww, gross!";
+
+                    //sobriety
+                    statValue[1, 0] = 0;
+                    //social
+                    statValue[1, 1] = -1;
+                    //love
+                    statValue[1, 2] = -2;
+
+                    statQuote[1] = RandomQuote("love");
+
+                    //button 3 text + stat schange
+                    answerText[2].text =
+                       "Why not a few of each?";
+
+                    //sobriety
+                    statValue[2, 0] = -2;
+                    //social
+                    statValue[2, 1] = 2;
+                    //love
+                    statValue[2, 2] = 2;
+
+                    statQuote[2] = RandomQuote("love");
+
+                    break;
+
                     #endregion
-    #region Social Scenarios
-                    #endregion
-    #region Love Scenarios
-    #endregion
 
             }
 
@@ -577,44 +1701,44 @@ public class ScenarioController : MonoBehaviour
     //Button Presses
     public void SubmitAnswer_1()
     {
-        //int[] statNumber = new int[3];
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[0,i]);
-            //statNumber[i] = statValue[0, i];
+            statNumber[i] = statValue[0, i];
         }
 
-        EnableStatUI(true,statQuote[0]);
+        EnableStatUI(true,statQuote[0],statNumber);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_2()
     {
-        //int[] statNumber = new int[3];
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[1, i]);
-            //statNumber[i] = statValue[1, i];
+            statNumber[i] = statValue[1, i];
         }
-        EnableStatUI(true,statQuote[1]);
+        EnableStatUI(true,statQuote[1],statNumber);
         EnableQuestionUI(false);
     }
 
     public void SubmitAnswer_3()
     {
-        //int[] statNumber = new int[3];
+        int[] statNumber = new int[3];
         for (int i = 0; i < changeStat.Length; i++)
         {
             gController.SendMessage("Change" + changeStat[i], statValue[2, i]);
-            //statNumber[i] = statValue[2, i];
+            statNumber[i] = statValue[2, i];
         }
-        EnableStatUI(true,statQuote[2]);
+        EnableStatUI(true,statQuote[2],statNumber);
         EnableQuestionUI(false);
     }
     #endregion
 
     #region StatUI
-    private void EnableStatUI(bool active, string quote)
+    private void EnableStatUI(bool active, string quote, int[] statnumber)
     {
         if (active)
         {
@@ -634,19 +1758,20 @@ public class ScenarioController : MonoBehaviour
             statText.text = quote; 
             statText.gameObject.SetActive(true);
             statBg.gameObject.SetActive(true);
-            StartCoroutine(UpdateStats());
 
-            //change Number Text
-            //string[] symbol = new string[3]; 
-            //for (int i = 0; i < valueText.Length; i++)
-            //{
-            //    if (statNumber[i] > 0)
-            //        symbol[i] = "+";
-            //    else if (statNumber[i] <= 0)
-            //        symbol[i] = "";
 
-            //    valueText[i].text = symbol[i] + statNumber[i]; 
-            //}
+            //change number text
+            for (int i = 0; i < statnumber.Length; i++)
+            {
+                if (statnumber[i] > 0)
+                    symbol[i] = "+";
+                else if (statnumber[i] < 0)
+                    symbol[i] = "-";
+                else
+                    symbol[i] = "";
+            }
+
+            StartCoroutine(UpdateStats(statnumber));
         }
 
         else if (!active)
@@ -657,7 +1782,7 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateStats()
+    private IEnumerator UpdateStats(int[] statNumber)
     {
         
         if (!gController.CheckPlayer())
@@ -667,24 +1792,22 @@ public class ScenarioController : MonoBehaviour
                 statColors[i] = boyIconValue[i];
 
             float elapsedTime = 0;
-            float totalTime = 3;
-
-            //string[] symbol = new string[3];
-            //for (int i = 0; i < valueText.Length; i++)
-            //{
-            //    if (statNumber[i] > 0)
-            //        symbol[i] = "+";
-            //    else if (statNumber[i] <= 0)
-            //        symbol[i] = "";
-            //}
+            float totalTime = 2;
 
             while (elapsedTime < totalTime)
             {
+                for (int i = 0; i < changeText.Length; i++)
+                {
+                    int number = Mathf.RoundToInt(Mathf.Lerp(Mathf.Abs(statNumber[i]) * 12.5f, 0, elapsedTime / totalTime));
+                    if (number == 0)
+                        changeText[i].text = "";
+                    else
+                     changeText[i].text = symbol[i] + number;
+                }
 
                 valueText[0].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[0], ((gController.CheckSobriety(gController.CheckPlayer())+4)*12.5f), elapsedTime / totalTime)).ToString();
                 valueText[1].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[1], ((gController.CheckSocial(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
                 valueText[2].text = Mathf.RoundToInt(Mathf.Lerp(boyStatValue[2], ((gController.CheckLove(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
-
 
                 statIcons[0].color = Color.Lerp(statColors[0], new Color(statColors[0].r, statColors[0].g, statColors[0].b, .502f + (gController.CheckSobriety(gController.CheckPlayer()) *.125f)), (elapsedTime / totalTime));
                 statIcons[1].color = Color.Lerp(statColors[1], new Color(statColors[1].r, statColors[1].g, statColors[1].b, .502f + (gController.CheckSocial(gController.CheckPlayer()) * .125f)), (elapsedTime / totalTime));
@@ -713,19 +1836,19 @@ public class ScenarioController : MonoBehaviour
                 statColors[i] = girlIconValue[i];
 
             float elapsedTime = 0;
-            float totalTime = 3;
-
-            //string[] symbol = new string[3];
-            //for (int i = 0; i < valueText.Length; i++)
-            //{
-            //    if (statNumber[i] > 0)
-            //        symbol[i] = "+";
-            //    else if (statNumber[i] <= 0)
-            //        symbol[i] = "";
-            //}
+            float totalTime = 2;
 
             while (elapsedTime < totalTime)
             {
+                for (int i = 0; i < changeText.Length; i++)
+                {
+                    int number = Mathf.RoundToInt(Mathf.Lerp(Mathf.Abs(statNumber[i]) * 12.5f, 0, elapsedTime / totalTime));
+                    if (number == 0)
+                        changeText[i].text = "";
+                    else
+                        changeText[i].text = symbol[i] + number;
+                }
+
                 valueText[0].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[0], ((gController.CheckSobriety(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
                 valueText[1].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[1], ((gController.CheckSocial(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
                 valueText[2].text = Mathf.RoundToInt(Mathf.Lerp(girlStatValue[2], ((gController.CheckLove(gController.CheckPlayer()) + 4) * 12.5f), elapsedTime / totalTime)).ToString();
@@ -740,7 +1863,7 @@ public class ScenarioController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 girlIconValue[i] = new Color(statIcons[i].color.r, statIcons[i].color.g, statIcons[i].color.b, statIcons[i].color.a);
-                girlStatValue[i] = int.Parse(valueText[i].text);
+                girlStatValue[i] = int.Parse(valueText[i].text);   
                 //Debug.Log("SavingColor" + i);
             }
 
