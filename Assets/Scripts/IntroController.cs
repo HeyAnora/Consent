@@ -36,7 +36,7 @@ public class IntroController : MonoBehaviour
 
             gController.PlayerName("boy") +" is hosting a party tonight, and " + gController.PlayerName("girl") + " is on the way.\n\n" +
            
-            "They are both hoping for a fun night of drinks and games with their friends. Perhaps afterwords, if everything goes right, they will take their realtionship to the next level."
+            "They are both hoping for a fun night of drinks and games with their friends. Perhaps afterwords, if everything goes right, they will take their relationship to the next level."
             ;
         StartCoroutine(gController.PlayAudio(clip));
     }
