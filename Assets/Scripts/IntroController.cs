@@ -32,7 +32,7 @@ public class IntroController : MonoBehaviour
         continueButton.onClick.AddListener(Continue);
         text.text =
             gController.PlayerName("boy") + " and " + gController.PlayerName("girl") + 
-                " have been dating for a couple weeks. So far they've been in a healthy, loving relationship.\n\n" +
+                " have been dating for a couple of weeks. So far they've been in a healthy, loving relationship.\n\n" +
 
             gController.PlayerName("boy") +" is hosting a party tonight, and " + gController.PlayerName("girl") + " is on the way.\n\n" +
            

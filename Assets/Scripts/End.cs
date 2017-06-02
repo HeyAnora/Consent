@@ -46,7 +46,10 @@ public class End : MonoBehaviour
     [SerializeField]
     private Sprite[] endNoGood;
     [SerializeField]
-    private float[] endWaitNoGood; 
+    private float[] endWaitNoGood;
+
+    [SerializeField]
+    private Sprite credits; 
 
 
     private GameController gController; 
@@ -139,8 +142,8 @@ public class End : MonoBehaviour
                 initialTime += Time.deltaTime;
                 yield return null;
             }
-            yield return new WaitForSeconds(2);
-            Restart();
+            yield return new WaitForSeconds(1);
+            StartCoroutine(Restart());
         }
         //Yes Good
         else
@@ -159,8 +162,8 @@ public class End : MonoBehaviour
                 initialTime += Time.deltaTime;
                 yield return null;
             }
-            yield return new WaitForSeconds(2);
-            Restart();
+            yield return new WaitForSeconds(1);
+            StartCoroutine(Restart());
         }
     }
 
@@ -186,13 +189,39 @@ public class End : MonoBehaviour
             initialTime += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(2);
-        Restart();
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Restart());
 
     }
 
-    private void Restart()
+    private IEnumerator Restart()
     {
+        float initialTime = 0;
+        float totalTime = 3;
+        Color startColor = bg.color;
+        bg.sprite = credits;
+
+        while (initialTime < totalTime)
+        {
+            bg.color = Color.Lerp(startColor, new Color(bg.color.r, bg.color.g, bg.color.b, 1), initialTime / totalTime);
+            initialTime += Time.deltaTime;
+            yield return null;
+        }
+
+        initialTime = 0;
+        totalTime = 3;
+        startColor = bg.color;
+        yield return new WaitForSeconds(3);       
+
+        while (initialTime < totalTime)
+        {
+            bg.color = Color.Lerp(startColor, new Color(bg.color.r, bg.color.g, bg.color.b, 0), initialTime / totalTime);
+            initialTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2);
+
         Destroy(gController.gameObject);
         SceneManager.LoadScene("Start");
     }

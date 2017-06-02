@@ -6,16 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ScenarioController : MonoBehaviour
 {
-
-    /// <summary>
-    /// TO DO:
-    /// -Hide UI and Change players
-    /// -
-    /// -Add stat values UI
-    ///
-    /// </summary>
-
-
     #region variables
     //Scenarios
     [SerializeField]
@@ -866,7 +856,7 @@ public class ScenarioController : MonoBehaviour
                 case 14:
                     //Dialogue text
                     dialogue.text =
-                        "I think Tessa has the hots for you. Make a move or I will, she's super drunk right now.";
+                        "I think Rony has the hots for you. Make a move or I will, she's super drunk right now.";
                     //button 1 text + stat schange
                     answerText[0].text =
                         "She is pretty hot...";
@@ -882,7 +872,7 @@ public class ScenarioController : MonoBehaviour
 
                     //button 2 text + stat schange
                     answerText[1].text =
-                       "I'm already dating " + gController.PlayerName("girl") + " and you should wait for Tessa to sober up.";
+                       "I'm already dating " + gController.PlayerName("girl") + " and you should wait for Rony to sober up.";
 
                     //sobriety
                     statValue[1, 0] = 1;
@@ -1016,7 +1006,7 @@ public class ScenarioController : MonoBehaviour
                 case 1:
                     //Dialogue text
                     dialogue.text =
-                        "Let's fill up that Solo cup!";
+                        "Let's fill up that red cup!";
                     //button 1 text + stat schange
                     answerText[0].text =
                         "Alright, but not too much. I havn't eaten yet.";
@@ -1045,7 +1035,7 @@ public class ScenarioController : MonoBehaviour
 
                     //button 3 text + stat schange
                     answerText[2].text =
-                       "I think I'll just have a Coke.";
+                       "I think I'll just have a soda.";
 
                     //sobriety
                     statValue[2, 0] = 2;
@@ -1077,7 +1067,7 @@ public class ScenarioController : MonoBehaviour
 
                     //button 2 text + stat schange
                     answerText[1].text =
-                       "Rum and Coke, but easy on the rum.";
+                       "Rum and cola, but easy on the rum.";
 
                     //sobriety
                     statValue[1, 0] = -1;
